@@ -1,1 +1,169 @@
 /.vscode
+# Giữ thư mục .gitignore ở cấp solution nếu bạn có nhiều project trong cùng một solution
+# Nếu đây chỉ là một project duy nhất trong repo, hãy đặt nó ở thư mục gốc của project (person.blog.api/)
+
+# ===========================================================================
+# Visual Studio / .NET Specific Files
+# ===========================================================================
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+[out]/
+# .NET Global Tool local install folders
+.config/dotnet-tools/
+
+# vsix extension build results
+*.vsix
+*.vsixmanifest
+
+# Package files
+*.nupkg
+*.snupkg
+*.pdb
+*.suo
+*.user
+*.bak
+*.ide
+*.log
+*.ncb
+*.opendb
+*.orig
+*.resharper
+*.testrunconfig
+*.trx
+
+# Visual Studio temporary files
+*.obj
+*.log
+*.tmp
+*.vspscc
+*.vssscc
+*.vsp
+*.bsc
+*.sbr
+*.tlog
+_ReSharper.*/
+*.[Cc]odeAnalysisLog.xml
+.vs/                   # Visual Studio solution user options (includes .suo)
+*.vspscc
+*.vssscc
+
+# NuGet package folders
+packages/
+
+# Project files and folders from VS for Mac
+.DS_Store
+*.csproj.user
+*.shproj.user
+*.vbproj.user
+*.xproj.user
+
+# Git ignore files
+.gitignore
+*.gitignore
+!*.gitignore
+
+# ReSharper files
+*.DotSettings
+*.userprefs
+
+# Rider files
+.idea/
+
+# Editor config
+.editorconfig
+
+# Local development files
+appsettings.Development.json # Thường thì file này có thể commit nếu chứa cấu hình dev an toàn
+# appsettings.Production.json # Rất khuyến nghị ignore file này nếu nó chứa thông tin nhạy cảm
+# appsettings.Staging.json    # Tương tự như Production
+# *.user.json                 # Các file cấu hình user-specific
+
+# Test results
+TestResults/
+
+# Dotnet tool local install folder
+.config/dotnet-tools/
+
+# ===========================================================================
+# Node.js / NPM (if you're using npm for any frontend build within the API project)
+# ===========================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+
+# ===========================================================================
+# Operating System Files
+# ===========================================================================
+.DS_Store
+.localized
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ===========================================================================
+# Miscellaneous
+# ===========================================================================
+*.zip
+*.rar
+*.7z
+*.gz
+*.tar
+*.iso
+*.dmg
+*.tmp
+
+
+# Build results and intermediate files
+[Bb]in/
+[Oo]bj/
+*.pdb
+*.dll
+*.exe
+*.json # Cần cẩn thận với *.json vì nó có thể bỏ qua appsettings.json. Nên cụ thể hơn.
+# Thay vì *.json, hãy dùng các dòng cụ thể hơn nếu bạn muốn bỏ qua các file json sinh ra:
+*.runtimeconfig.json
+*.dgspec.json
+project.assets.json
+*.cache
+*.targets
+*.txt
+
+# NuGet files
+project.nuget.cache
+packages/ # Thư mục chứa các gói NuGet đã tải về
+
+# Visual Studio temporary files / user-specific files
+.vs/ # Thư mục .vs (chứa .suo và các file tạm khác của VS)
+*.user
+person.blog.api/NuGet.Config
+person.blog.api/person.blog.api.csproj
+person.blog.api/bin/Debug/net6.0/appsettings.json
+person.blog.api/bin/Debug/net6.0/person.blog.api.deps.json
+person.blog.api/bin/Debug/net6.0/person.blog.api.dll
+person.blog.api/bin/Debug/net6.0/person.blog.api.exe
+person.blog.api/bin/Debug/net6.0/person.blog.api.pdb
+person.blog.api/bin/Debug/net6.0/person.blog.api.runtimeconfig.json
+person.blog.api/obj/person.blog.api.csproj.nuget.dgspec.json
+person.blog.api/obj/person.blog.api.csproj.nuget.g.targets
+person.blog.api/obj/project.assets.json
+person.blog.api/obj/project.nuget.cache
+person.blog.api/obj/Debug/net6.0/apphost.exe
+person.blog.api/obj/Debug/net6.0/person.blog.api.AssemblyInfo.cs
+person.blog.api/obj/Debug/net6.0/person.blog.api.AssemblyInfoInputs.cache
+person.blog.api/obj/Debug/net6.0/person.blog.api.assets.cache
+person.blog.api/obj/Debug/net6.0/person.blog.api.csproj.AssemblyReference.cache
+person.blog.api/obj/Debug/net6.0/person.blog.api.csproj.CoreCompileInputs.cache
+person.blog.api/obj/Debug/net6.0/person.blog.api.csproj.FileListAbsolute.txt
+person.blog.api/obj/Debug/net6.0/person.blog.api.dll
+person.blog.api/obj/Debug/net6.0/person.blog.api.genruntimeconfig.cache
+person.blog.api/obj/Debug/net6.0/person.blog.api.pdb
+person.blog.api/obj/Debug/net6.0/ref/person.blog.api.dll
+person.blog.api/obj/Debug/net6.0/refint/person.blog.api.dll
