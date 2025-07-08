@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "5pfUYVScNW81rYVSVZG7260BvkHtbznxOfqBNVDILmk=",
+  "Source": "person.blog.api",
+  "BasePath": "_content/person.blog.api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
