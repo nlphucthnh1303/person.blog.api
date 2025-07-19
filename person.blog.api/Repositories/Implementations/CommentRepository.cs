@@ -12,7 +12,7 @@ namespace PersonBlogApi.Repositories.Implementations
     {
         public CommentRepository(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> CommentCreate(CommentCreate comment)
+        public async Task<int> CommentCreate(CommentCreate_Req comment)
         {
             using (var connection = GetConnection())
             {
@@ -38,7 +38,7 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<CommentGet>> CommentGetByPostId(int postId, int pageNumber, int pageSize)
+        public async Task<List<CommentGet_Req>> CommentGetByPostId(int postId, int pageNumber, int pageSize)
         {
             using (var connection = GetConnection())
             {
@@ -48,7 +48,7 @@ namespace PersonBlogApi.Repositories.Implementations
                     p_Offset = (pageNumber - 1) * pageSize,
                     p_Limit = pageSize
                 };
-                return (await connection.QueryAsync<CommentGet>(
+                return (await connection.QueryAsync<CommentGet_Req>(
                     "sp_Comments_GetByPostId",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -56,19 +56,19 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<CommentGet?> CommentGetById(int commentId)
+        public async Task<CommentGet_Req?> CommentGetById(int commentId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_CommentId = commentId };
-                return await connection.QueryFirstOrDefaultAsync<CommentGet>(
+                return await connection.QueryFirstOrDefaultAsync<CommentGet_Req>(
                     "SELECT * FROM Comments WHERE CommentId = @p_CommentId", // Hoặc SP: sp_Comments_GetById
                     parameters
                 );
             }
         }
 
-        public async Task<bool> CommentUpdate(int commentId, CommentUpdate comment)
+        public async Task<bool> CommentUpdate(int commentId, CommentUpdate_Req comment)
         {
             using (var connection = GetConnection())
             {

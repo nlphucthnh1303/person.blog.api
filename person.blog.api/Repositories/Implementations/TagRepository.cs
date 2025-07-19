@@ -12,7 +12,7 @@ namespace PersonBlogApi.Repositories.Implementations
     {
         public TagRepository(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> TagCreate(TagCreate tag)
+        public async Task<int> TagCreate_Req(TagCreate_Req tag)
         {
             using (var connection = GetConnection())
             {
@@ -38,23 +38,23 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<TagGet>> TagGetAll()
+        public async Task<List<TagGet_Req>> TagGet_ReqAll()
         {
             using (var connection = GetConnection())
             {
-                return (await connection.QueryAsync<TagGet>(
+                return (await connection.QueryAsync<TagGet_Req>(
                     "sp_Tags_GetAll",
                     commandType: System.Data.CommandType.StoredProcedure
                 )).ToList();
             }
         }
 
-        public async Task<TagGet?> TagGetById(int tagId)
+        public async Task<TagGet_Req?> TagGet_ReqById(int tagId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_TagId = tagId };
-                return await connection.QueryFirstOrDefaultAsync<TagGet>(
+                return await connection.QueryFirstOrDefaultAsync<TagGet_Req>(
                     "sp_Tags_GetById",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -62,12 +62,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<TagGet?> TagGetBySlug(string slug)
+        public async Task<TagGet_Req?> TagGet_ReqBySlug(string slug)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Slug = slug };
-                return await connection.QueryFirstOrDefaultAsync<TagGet>(
+                return await connection.QueryFirstOrDefaultAsync<TagGet_Req>(
                     "sp_Tags_GetBySlug",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -75,7 +75,7 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<bool> TagUpdate(int tagId, TagUpdate tag)
+        public async Task<bool> TagUpdate_Req(int tagId, TagUpdate_Req tag)
         {
             using (var connection = GetConnection())
             {

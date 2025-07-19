@@ -1,0 +1,12 @@
+namespace PersonBlogApi.Models.Roles
+{
+    public class RoleGet_Req
+    {
+        public int RoleId { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public bool IsActive { get; set; } // Giả định có trường IsActive
+    }
+}

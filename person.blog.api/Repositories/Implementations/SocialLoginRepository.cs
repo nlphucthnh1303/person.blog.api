@@ -12,7 +12,7 @@ namespace PersonBlogApi.Repositories.Implementations
     {
         public SocialLoginRepository(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> SocialLoginCreate(SocialLoginCreate socialLogin)
+        public async Task<int> SocialLoginCreate_Req(SocialLoginCreate_Req socialLogin)
         {
             using (var connection = GetConnection())
             {
@@ -38,12 +38,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<SocialLoginGet?> SocialLoginGetById(int socialLoginId)
+        public async Task<SocialLoginGet_Req?> SocialLoginGet_ReqById(int socialLoginId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_SocialLoginId = socialLoginId };
-                return await connection.QueryFirstOrDefaultAsync<SocialLoginGet>(
+                return await connection.QueryFirstOrDefaultAsync<SocialLoginGet_Req>(
                     "sp_SocialLogins_GetById",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -51,12 +51,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<SocialLoginGet?> SocialLoginGetByProviderAndKey(string provider, string providerKey)
+        public async Task<SocialLoginGet_Req?> SocialLoginGet_ReqByProviderAndKey(string provider, string providerKey)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Provider = provider, p_ProviderKey = providerKey };
-                return await connection.QueryFirstOrDefaultAsync<SocialLoginGet>(
+                return await connection.QueryFirstOrDefaultAsync<SocialLoginGet_Req>(
                     "sp_SocialLogins_GetByProviderAndKey",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -64,12 +64,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<SocialLoginGet>> SocialLoginGetByUserId(int userId)
+        public async Task<List<SocialLoginGet_Req>> SocialLoginGet_ReqByUserId(int userId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_UserId = userId };
-                return (await connection.QueryAsync<SocialLoginGet>(
+                return (await connection.QueryAsync<SocialLoginGet_Req>(
                     "sp_SocialLogins_GetByUserId",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure

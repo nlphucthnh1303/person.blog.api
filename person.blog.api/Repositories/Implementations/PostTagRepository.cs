@@ -25,12 +25,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<PostTagGet>> PostTagGetByPostId(int postId)
+        public async Task<List<PostTagGet_Req_Req>> PostTagGet_Req_ReqByPostId(int postId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_PostId = postId };
-                return (await connection.QueryAsync<PostTagGet>(
+                return (await connection.QueryAsync<PostTagGet_Req_Req>(
                     "sp_PostTags_GetByPostId", 
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure

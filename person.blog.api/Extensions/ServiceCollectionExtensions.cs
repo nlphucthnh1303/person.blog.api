@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PersonBlogApi.Services.Interfaces;
-using PersonBlogApi.Services.Implementations;
 using PersonBlogApi.Repositories;
 using PersonBlogApi.Repositories.Interfaces;
 using PersonBlogApi.Repositories.Implementations;
@@ -34,7 +33,6 @@ namespace PersonBlogApi.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             // Đảm bảo bạn đã có các Service này và interface tương ứng
-            services.AddScoped<IAuthService, AuthService>();
             // services.AddScoped<IUserService, UserService>();
             // services.AddScoped<IPostService, PostService>();
             // services.AddScoped<ICategoryService, CategoryService>();

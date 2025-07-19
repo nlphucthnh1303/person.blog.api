@@ -6,11 +6,11 @@ namespace PersonBlogApi.Repositories.Interfaces
 {
     public interface IPermissionRepository
     {
-        Task<int> PermissionCreate(PermissionCreate permission);
+        Task<int> PermissionCreate_Req(PermissionCreate_Req permission);
         Task<bool> PermissionDelete(int permissionId);
-        Task<List<PermissionGet>> PermissionGetAll();
-        Task<PermissionGet?> PermissionGetById(int permissionId);
-        Task<PermissionGet?> PermissionGetByName(string name);
-        Task<bool> PermissionUpdate(int permissionId, PermissionUpdate permission);
+        Task<List<PermissionGet_Req>> PermissionGet_ReqAll();
+        Task<PermissionGet_Req?> PermissionGet_ReqById(int permissionId);
+        Task<PermissionGet_Req?> PermissionGet_ReqByName(string name);
+        Task<bool> PermissionUpdate_Req(int permissionId, PermissionUpdate_Req permission);
     }
 }

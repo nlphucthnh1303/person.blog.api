@@ -12,7 +12,7 @@ namespace PersonBlogApi.Repositories.Implementations
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> PostCreate(PostCreate post)
+        public async Task<int> PostCreate_Req(PostCreate_Req post)
         {
             using (var connection = GetConnection())
             {
@@ -38,12 +38,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<PostGet?> PostGetById(int postId)
+        public async Task<PostGet_Req?> PostGet_ReqById(int postId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_PostId = postId };
-                return await connection.QueryFirstOrDefaultAsync<PostGet>(
+                return await connection.QueryFirstOrDefaultAsync<PostGet_Req>(
                     "sp_Posts_GetById",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -51,12 +51,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<PostGet?> PostGetBySlug(string slug)
+        public async Task<PostGet_Req?> PostGet_ReqBySlug(string slug)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Slug = slug };
-                return await connection.QueryFirstOrDefaultAsync<PostGet>(
+                return await connection.QueryFirstOrDefaultAsync<PostGet_Req>(
                     "sp_Posts_GetBySlug",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -64,7 +64,7 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<PostListItem>> PostGetPublishedList(int pageNumber, int pageSize)
+        public async Task<List<PostListItem_Req>> PostGet_ReqPublishedList(int pageNumber, int pageSize)
         {
             using (var connection = GetConnection())
             {
@@ -73,7 +73,7 @@ namespace PersonBlogApi.Repositories.Implementations
                     p_Offset = (pageNumber - 1) * pageSize,
                     p_Limit = pageSize
                 };
-                return (await connection.QueryAsync<PostListItem>(
+                return (await connection.QueryAsync<PostListItem_Req>(
                     "sp_Posts_GetPublishedList",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -95,7 +95,7 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<bool> PostUpdate(int postId, PostUpdate post)
+        public async Task<bool> PostUpdate_Req(int postId, PostUpdate_Req post)
         {
             using (var connection = GetConnection())
             {
@@ -115,7 +115,7 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<bool> PostUpdateStatus(int postId, string status)
+        public async Task<bool> PostUpdate_ReqStatus(int postId, string status)
         {
             using (var connection = GetConnection())
             {
@@ -133,7 +133,7 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<int> PostGetTotalPublishedPostCount()
+        public async Task<int> PostGet_ReqTotalPublishedPostCount()
         {
             using (var connection = GetConnection())
             {

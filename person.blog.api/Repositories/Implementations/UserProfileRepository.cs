@@ -10,7 +10,7 @@ namespace PersonBlogApi.Repositories.Implementations
     {
         public UserProfileRepository(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> UserProfileCreate(UserProfileCreate profile)
+        public async Task<int> UserProfileCreate_Req(UserProfileCreate_Req profile)
         {
             using (var connection = GetConnection())
             {
@@ -22,12 +22,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<UserProfileGet?> UserProfileGetByUserId(int userId)
+        public async Task<UserProfileGet_Req?> UserProfileGet_ReqByUserId(int userId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_UserId = userId };
-                return await connection.QueryFirstOrDefaultAsync<UserProfileGet>(
+                return await connection.QueryFirstOrDefaultAsync<UserProfileGet_Req>(
                     "sp_UserProfiles_GetByUserId",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -35,7 +35,7 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<bool> UserProfileUpdate(int userId, UserProfileUpdate profile)
+        public async Task<bool> UserProfileUpdate_Req(int userId, UserProfileUpdate_Req profile)
         {
             using (var connection = GetConnection())
             {
@@ -55,11 +55,11 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<bool> UserProfileUpdateUserId(int oldUserId, int newUserId)
+        public async Task<bool> UserProfileUpdateUserId_Req(int oldUserId, int newUserId)
         {
             using (var connection = GetConnection())
             {
-                var parameters = new UserProfileUpdateUserId
+                var parameters = new UserProfileUpdateUserId_Req
                 {
                     OldUserId = oldUserId,
                     NewUserId = newUserId

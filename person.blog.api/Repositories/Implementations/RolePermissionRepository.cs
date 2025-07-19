@@ -25,12 +25,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<PermissionGet>> RolePermissionGetByRoleId(int roleId)
+        public async Task<List<PermissionGet_Req>> RolePermissionGet_ReqByRoleId(int roleId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_RoleId = roleId };
-                return (await connection.QueryAsync<PermissionGet>(
+                return (await connection.QueryAsync<PermissionGet_Req>(
                     "sp_RolePermissions_GetByRoleId", // Giả định SP này join và trả về thông tin Permission
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure

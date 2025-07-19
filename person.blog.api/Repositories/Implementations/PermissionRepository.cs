@@ -12,7 +12,7 @@ namespace PersonBlogApi.Repositories.Implementations
     {
         public PermissionRepository(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> PermissionCreate(PermissionCreate permission)
+        public async Task<int> PermissionCreate_Req(PermissionCreate_Req permission)
         {
             using (var connection = GetConnection())
             {
@@ -38,23 +38,23 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<PermissionGet>> PermissionGetAll()
+        public async Task<List<PermissionGet_Req>> PermissionGet_ReqAll()
         {
             using (var connection = GetConnection())
             {
-                return (await connection.QueryAsync<PermissionGet>(
+                return (await connection.QueryAsync<PermissionGet_Req>(
                     "sp_Permissions_GetAll",
                     commandType: System.Data.CommandType.StoredProcedure
                 )).ToList();
             }
         }
 
-        public async Task<PermissionGet?> PermissionGetById(int permissionId)
+        public async Task<PermissionGet_Req?> PermissionGet_ReqById(int permissionId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_PermissionId = permissionId };
-                return await connection.QueryFirstOrDefaultAsync<PermissionGet>(
+                return await connection.QueryFirstOrDefaultAsync<PermissionGet_Req>(
                     "sp_Permissions_GetById",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -63,12 +63,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<PermissionGet?> PermissionGetByName(string name)
+        public async Task<PermissionGet_Req?> PermissionGet_ReqByName(string name)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Name = name };
-                return await connection.QueryFirstOrDefaultAsync<PermissionGet>(
+                return await connection.QueryFirstOrDefaultAsync<PermissionGet_Req>(
                     "sp_Permissions_GetByName",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -76,7 +76,7 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<bool> PermissionUpdate(int permissionId, PermissionUpdate permission)
+        public async Task<bool> PermissionUpdate_Req(int permissionId, PermissionUpdate_Req permission)
         {
             using (var connection = GetConnection())
             {

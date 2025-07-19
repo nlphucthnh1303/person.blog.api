@@ -6,11 +6,11 @@ namespace PersonBlogApi.Repositories.Interfaces
 {
     public interface ITagRepository
     {
-        Task<int> TagCreate(TagCreate tag);
+        Task<int> TagCreate_Req(TagCreate_Req tag);
         Task<bool> TagDelete(int tagId);
-        Task<List<TagGet>> TagGetAll();
-        Task<TagGet?> TagGetById(int tagId);
-        Task<TagGet?> TagGetBySlug(string slug);
-        Task<bool> TagUpdate(int tagId, TagUpdate tag);
+        Task<List<TagGet_Req>> TagGet_ReqAll();
+        Task<TagGet_Req?> TagGet_ReqById(int tagId);
+        Task<TagGet_Req?> TagGet_ReqBySlug(string slug);
+        Task<bool> TagUpdate_Req(int tagId, TagUpdate_Req tag);
     }
 }

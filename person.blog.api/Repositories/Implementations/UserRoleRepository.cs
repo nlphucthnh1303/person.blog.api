@@ -25,12 +25,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<RoleGet>> UserRoleGetByUserId(int userId)
+        public async Task<List<RoleGet_Req>> UserRoleGet_ReqByUserId(int userId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_UserId = userId };
-                return (await connection.QueryAsync<RoleGet>(
+                return (await connection.QueryAsync<RoleGet_Req>(
                     "sp_UserRoles_GetByUserId", // Giả định SP này join và trả về thông tin Role
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -38,13 +38,13 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<PermissionGet>> UserRoleGetPermissionsByUserId(int userId)
+        public async Task<List<PermissionGet_Req>> UserRoleGet_ReqPermissionsByUserId(int userId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_UserId = userId };
                 // Giả định SP này join UserRoles -> Roles -> RolePermissions -> Permissions
-                return (await connection.QueryAsync<PermissionGet>(
+                return (await connection.QueryAsync<PermissionGet_Req>(
                     "sp_UserRoles_GetPermissionsByUserId",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure

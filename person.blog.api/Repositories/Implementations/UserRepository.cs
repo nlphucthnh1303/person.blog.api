@@ -10,12 +10,12 @@ namespace PersonBlogApi.Repositories
     {
         public UserRepository(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<UserGet?> GetUserById(int userId)
+        public async Task<UserGet_Req?> GetUserById(int userId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_UserId = userId }; // Tên tham số khớp với SP
-                return await connection.QueryFirstOrDefaultAsync<UserGet>(
+                return await connection.QueryFirstOrDefaultAsync<UserGet_Req>(
                     "sp_Users_GetById", // Tên Stored Procedure
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -23,12 +23,12 @@ namespace PersonBlogApi.Repositories
             }
         }
 
-        public async Task<UserGet?> GetUserByUsername(string username)
+        public async Task<UserGet_Req?> GetUserByUsername(string username)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Username = username }; // Tên tham số khớp với SP
-                return await connection.QueryFirstOrDefaultAsync<UserGet>(
+                return await connection.QueryFirstOrDefaultAsync<UserGet_Req>(
                     "sp_Users_GetByUsername", // Tên Stored Procedure
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -36,12 +36,12 @@ namespace PersonBlogApi.Repositories
             }
         }
 
-        public async Task<UserGet?> GetUserByEmail(string email)
+        public async Task<UserGet_Req?> GetUserByEmail(string email)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Email = email }; // Tên tham số khớp với SP
-                return await connection.QueryFirstOrDefaultAsync<UserGet>(
+                return await connection.QueryFirstOrDefaultAsync<UserGet_Req>(
                     "sp_Users_GetByEmail", // Tên Stored Procedure
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -85,7 +85,7 @@ namespace PersonBlogApi.Repositories
             }
         }
 
-        public async Task<bool> UserDelete(int userId)
+        public async Task<bool> UserDelete_Req(int userId)
         {
             using (var connection = GetConnection())
             {
@@ -99,7 +99,7 @@ namespace PersonBlogApi.Repositories
             }
         }
 
-        public async Task<int> UserCreate(UserCreate userCreate)
+        public async Task<int> UserCreate_Req(UserCreate_Req UserCreate_Req)
         {
             //Sử dụng 'using' để đảm bảo MySqlConnection được đóng và giải phóng đúng cách.
             using (var connection = GetConnection())
@@ -108,9 +108,9 @@ namespace PersonBlogApi.Repositories
                 // Tên thuộc tính phải khớp với tên tham số của SP (ví dụ: p_Username).
                 var parameters = new
                 {
-                    p_Username = userCreate.Username,
-                    p_Email = userCreate.Email,
-                    p_PasswordHash = userCreate.PasswordHash
+                    p_Username = UserCreate_Req.Username,
+                    p_Email = UserCreate_Req.Email,
+                    p_PasswordHash = UserCreate_Req.PasswordHash
                 };
 
                 // QuerySingleOrDefaultAsync<T>: Dùng khi SP trả về một giá trị duy nhất (như ID mới).

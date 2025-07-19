@@ -10,7 +10,7 @@ namespace PersonBlogApi.Repositories.Implementations
     {
         public RoleRepository(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> RoleCreate(RoleCreate role)
+        public async Task<int> RoleCreate_Req(RoleCreate_Req role)
         {
             using (var connection = GetConnection())
             {
@@ -37,23 +37,23 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<RoleGet>> RoleGetAll()
+        public async Task<List<RoleGet_Req>> RoleGet_ReqAll()
         {
             using (var connection = GetConnection())
             {
-                return (await connection.QueryAsync<RoleGet>(
+                return (await connection.QueryAsync<RoleGet_Req>(
                     "sp_Roles_GetAll",
                     commandType: System.Data.CommandType.StoredProcedure
                 )).ToList();
             }
         }
 
-        public async Task<RoleGet?> RoleGetById(int roleId)
+        public async Task<RoleGet_Req?> RoleGet_ReqById(int roleId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_RoleId = roleId };
-                return await connection.QueryFirstOrDefaultAsync<RoleGet>(
+                return await connection.QueryFirstOrDefaultAsync<RoleGet_Req>(
                     "sp_Roles_GetById",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -61,12 +61,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<RoleGet?> RoleGetByName(string name)
+        public async Task<RoleGet_Req?> RoleGet_ReqByName(string name)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Name = name };
-                return await connection.QueryFirstOrDefaultAsync<RoleGet>(
+                return await connection.QueryFirstOrDefaultAsync<RoleGet_Req>(
                     "sp_Roles_GetByName",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -74,7 +74,7 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<bool> RoleUpdate(int roleId, RoleUpdate role)
+        public async Task<bool> RoleUpdate_Req(int roleId, RoleUpdate_Req role)
         {
             using (var connection = GetConnection())
             {
