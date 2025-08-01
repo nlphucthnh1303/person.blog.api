@@ -1,6 +1,6 @@
 namespace PersonBlogApi.Models.UserProfiles
 {
-    public class UserProfileGet_Req
+    public class UserProfileGet_Res
     {
         public int UserProfileId { get; set; }
         public int UserId { get; set; } 

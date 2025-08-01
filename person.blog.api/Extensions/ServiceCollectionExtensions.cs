@@ -1,7 +1,6 @@
 // Extensions/ServiceCollectionExtensions.cs
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PersonBlogApi.Services.Interfaces;
 using PersonBlogApi.Repositories;
 using PersonBlogApi.Repositories.Interfaces;
 using PersonBlogApi.Repositories.Implementations;
@@ -13,19 +12,19 @@ namespace PersonBlogApi.Extensions
         // Phương thức mở rộng để đăng ký tất cả các Repositories
         public static IServiceCollection AddApplicationRepositories(this IServiceCollection services)
         {
-            // Đảm bảo bạn đã có các Repository này và interface tương ứng
+            // Đảm bảo bạn đã có các Service này và interface tương ứng
             
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.AddScoped<IUserProfileRepository, UserProfileRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<ITagRepository, TagRepository>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
-            services.AddScoped<ICommentLikeRepository, CommentLikeRepository>();
-            services.AddScoped<IRoleRepository, RoleRepository>();
-            services.AddScoped<IPermissionRepository, PermissionRepository>();
-            services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
-            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IUserProfileService, UserProfileService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ITagService, TagService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<ICommentLikeService, CommentLikeService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IPermissionService, PermissionService>();
+            services.AddScoped<IRolePermissionService, RolePermissionService>();
+            services.AddScoped<IUserRoleService, UserRoleService>();
             return services;
         }
 
@@ -46,7 +45,7 @@ namespace PersonBlogApi.Extensions
         // hoặc thêm các dịch vụ khác (như xác thực JWT, v.v.)
         public static IServiceCollection AddApplicationDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            // Bạn có thể đặt logic kiểm tra chuỗi kết nối ở đây hoặc trong BaseRepository
+            // Bạn có thể đặt logic kiểm tra chuỗi kết nối ở đây hoặc trong BaseService
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             if (string.IsNullOrEmpty(connectionString))
             {
