@@ -8,8 +8,9 @@ namespace PersonBlogApi.Services.Interfaces
     {
         Task<int> CommentCreate(CommentCreate_Req comment);
         Task<bool> CommentDelete(int commentId);
-        Task<List<CommentGet_Req>> CommentGetByPostId(int postId, int pageNumber, int pageSize);
-        Task<CommentGet_Req?> CommentGetById(int commentId); 
-        Task<bool> CommentUpdate(int commentId, CommentUpdate_Req comment);
+        Task<List<CommentGetByPostId_Res>> CommentGetByPostId(int postId);
+        Task<bool> CommentUpdate(CommentUpdate_Req comment);
     }
+    
+
 }

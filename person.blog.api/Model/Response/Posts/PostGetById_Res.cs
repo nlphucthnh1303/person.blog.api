@@ -1,6 +1,6 @@
 namespace PersonBlogApi.Models.Posts
 {
-    public class PostGet_Req
+    public class PostGetById_Res
     {
         public int PostId { get; set; }
         public string Title { get; set; } = string.Empty;

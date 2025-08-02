@@ -1,6 +1,6 @@
 namespace PersonBlogApi.Models.Comments
 {
-    public class CommentGet_Req
+    public class CommentGetByPostId_Res
     {
         public int CommentId { get; set; }
         public int PostId { get; set; }
@@ -9,7 +9,10 @@ namespace PersonBlogApi.Models.Comments
         public int? ParentCommentId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public bool IsDeleted { get; set; }
-        public string? Username { get; set; }
+        public string? AuthorUsername { get; set; }
+         public string? AuthorAvatarUrl { get; set; }
     }
+
+    
+
 }

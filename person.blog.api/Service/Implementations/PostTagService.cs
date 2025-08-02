@@ -2,6 +2,7 @@
 using Dapper;
 using ersonBlogApi.Services;
 using PersonBlogApi.Models.PostTags;
+using PersonBlogApi.Models.Roles;
 using PersonBlogApi.Services.Interfaces;
 
 
@@ -25,12 +26,12 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<List<PostTagGet_Req_Req>> PostTagGet_Req_ReqByPostId(int postId)
+        public async Task<List<PostTagGetByPostId_Res>> PostTagGetByPostId(int postId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_PostId = postId };
-                return (await connection.QueryAsync<PostTagGet_Req_Req>(
+                return (await connection.QueryAsync<PostTagGetByPostId_Res>(
                     "sp_PostTags_GetByPostId", 
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure

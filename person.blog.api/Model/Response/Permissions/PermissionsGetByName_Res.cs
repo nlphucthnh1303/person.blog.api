@@ -1,8 +1,8 @@
-namespace PersonBlogApi.Models.Roles
+namespace PersonBlogApi.Models.Posts
 {
-    public class RoleGet_Res
+    public class PermissionsGetByName_Res
     {
-        public int RoleId { get; set; }
+        public int PermissionId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }

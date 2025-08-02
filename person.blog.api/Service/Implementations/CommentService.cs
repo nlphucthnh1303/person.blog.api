@@ -16,9 +16,14 @@ namespace PersonBlogApi.Services.Implementations
         {
             using (var connection = GetConnection())
             {
-                return await connection.QuerySingleOrDefaultAsync<int>(
+                var parameters = new DynamicParameters();
+                parameters.Add("p_PostId",comment.PostId);
+                parameters.Add("p_UserId", comment.UserId);
+                parameters.Add("p_Content", comment.Content);
+                parameters.Add("p_ParentCommentId", comment.ParentCommentId);
+                return await connection.ExecuteAsync(
                     "sp_Comments_Create",
-                    comment,
+                    parameters,
                     commandType: System.Data.CommandType.StoredProcedure
                 );
             }
@@ -38,17 +43,12 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<List<CommentGet_Req>> CommentGetByPostId(int postId, int pageNumber, int pageSize)
+        public async Task<List<CommentGetByPostId_Res>> CommentGetByPostId(int postId)
         {
             using (var connection = GetConnection())
             {
-                var parameters = new
-                {
-                    p_PostId = postId,
-                    p_Offset = (pageNumber - 1) * pageSize,
-                    p_Limit = pageSize
-                };
-                return (await connection.QueryAsync<CommentGet_Req>(
+                 var parameters = new { p_PostId = postId };
+                return (await connection.QueryAsync<CommentGetByPostId_Res>(
                     "sp_Comments_GetByPostId",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -56,24 +56,12 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<CommentGet_Req?> CommentGetById(int commentId)
-        {
-            using (var connection = GetConnection())
-            {
-                var parameters = new { p_CommentId = commentId };
-                return await connection.QueryFirstOrDefaultAsync<CommentGet_Req>(
-                    "SELECT * FROM Comments WHERE CommentId = @p_CommentId", // Hoặc SP: sp_Comments_GetById
-                    parameters
-                );
-            }
-        }
-
-        public async Task<bool> CommentUpdate(int commentId, CommentUpdate_Req comment)
+        public async Task<bool> CommentUpdate(CommentUpdate_Req comment)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("p_CommentId", commentId);
+                parameters.Add("p_CommentId", comment.CommentId);
                 parameters.Add("p_Content", comment.Content);
                 // Thêm các tham số khác nếu SP của bạn có
 

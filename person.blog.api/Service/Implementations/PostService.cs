@@ -12,13 +12,22 @@ namespace PersonBlogApi.Services.Implementations
     {
         public PostService(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> PostCreate_Req(PostCreate_Req post)
+        public async Task<int> PostCreate(PostCreate_Req post)
         {
             using (var connection = GetConnection())
             {
-                return await connection.QuerySingleOrDefaultAsync<int>(
+                var parameters = new DynamicParameters();
+                parameters.Add("p_Title", post.Title);
+                parameters.Add("p_Content", post.Content);
+                parameters.Add("p_Slug", post.Slug);
+                parameters.Add("p_Summary", post.Summary);
+                parameters.Add("p_ThumbnailUrl", post.ThumbnailUrl);
+                parameters.Add("p_AuthorId", post.AuthorId);
+                parameters.Add("p_CategoryId", post.CategoryId);
+                parameters.Add("p_Status", post.Status);  
+                return await connection.ExecuteAsync(
                     "sp_Posts_Create",
-                    post,
+                    parameters,
                     commandType: System.Data.CommandType.StoredProcedure
                 );
             }
@@ -38,12 +47,12 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<PostGet_Req?> PostGet_ReqById(int postId)
+        public async Task<PostGetById_Res?> PostGetById(int postId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_PostId = postId };
-                return await connection.QueryFirstOrDefaultAsync<PostGet_Req>(
+                return await connection.QueryFirstOrDefaultAsync<PostGetById_Res>(
                     "sp_Posts_GetById",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -51,12 +60,12 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<PostGet_Req?> PostGet_ReqBySlug(string slug)
+        public async Task<PostGetBySlug_Res?> PostGetBySlug(string slug)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Slug = slug };
-                return await connection.QueryFirstOrDefaultAsync<PostGet_Req>(
+                return await connection.QueryFirstOrDefaultAsync<PostGetBySlug_Res>(
                     "sp_Posts_GetBySlug",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -64,7 +73,7 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<List<PostListItem_Req>> PostGet_ReqPublishedList(int pageNumber, int pageSize)
+        public async Task<List<PostGetPublishedList_Res>> PostGetPublishedList(int pageNumber, int pageSize)
         {
             using (var connection = GetConnection())
             {
@@ -73,7 +82,7 @@ namespace PersonBlogApi.Services.Implementations
                     p_Offset = (pageNumber - 1) * pageSize,
                     p_Limit = pageSize
                 };
-                return (await connection.QueryAsync<PostListItem_Req>(
+                return (await connection.QueryAsync<PostGetPublishedList_Res>(
                     "sp_Posts_GetPublishedList",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -95,17 +104,20 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<bool> PostUpdate_Req(int postId, PostUpdate_Req post)
+        public async Task<bool> PostUpdate(PostUpdate_Req post)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("p_PostId", postId);
+                parameters.Add("p_PostId", post.PostId);
                 parameters.Add("p_Title", post.Title);
                 parameters.Add("p_Content", post.Content);
                 parameters.Add("p_Slug", post.Slug);
+                parameters.Add("p_Summary", post.Summary);
+                parameters.Add("p_ThumbnailUrl", post.ThumbnailUrl);
+                parameters.Add("p_AuthorId", post.AuthorId);
                 parameters.Add("p_CategoryId", post.CategoryId);
-
+                parameters.Add("p_Status", post.Status); 
                 var affectedRows = await connection.ExecuteAsync(
                     "sp_Posts_Update",
                     parameters,
@@ -115,7 +127,7 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<bool> PostUpdate_ReqStatus(int postId, string status)
+        public async Task<bool> PostUpdateStatus(int postId, string status)
         {
             using (var connection = GetConnection())
             {
@@ -130,18 +142,6 @@ namespace PersonBlogApi.Services.Implementations
                     commandType: System.Data.CommandType.StoredProcedure
                 );
                 return affectedRows > 0;
-            }
-        }
-
-        public async Task<int> PostGet_ReqTotalPublishedPostCount()
-        {
-            using (var connection = GetConnection())
-            {
-                // Giả định bạn có SP này hoặc câu lệnh SELECT trực tiếp
-                return await connection.QuerySingleOrDefaultAsync<int>(
-                    "SELECT COUNT(PostId) FROM Posts WHERE Status = 'Published' AND IsDeleted = FALSE"
-                    // Hoặc "sp_Posts_GetTotalPublishedCount", commandType: CommandType.StoredProcedure
-                );
             }
         }
 

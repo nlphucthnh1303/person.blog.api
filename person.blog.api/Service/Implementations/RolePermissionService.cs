@@ -2,6 +2,7 @@
 using Dapper;
 using ersonBlogApi.Services;
 using PersonBlogApi.Models.Permissions;
+using PersonBlogApi.Models.Roles;
 using PersonBlogApi.Services.Interfaces;
 
 
@@ -25,12 +26,12 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<List<PermissionGet_Req>> RolePermissionGet_ReqByRoleId(int roleId)
+        public async Task<List<RolePermissionGetByRoleId_Res>> RolePermissionGetByRoleId(int roleId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_RoleId = roleId };
-                return (await connection.QueryAsync<PermissionGet_Req>(
+                return (await connection.QueryAsync<RolePermissionGetByRoleId_Res>(
                     "sp_RolePermissions_GetByRoleId", // Giả định SP này join và trả về thông tin Permission
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure

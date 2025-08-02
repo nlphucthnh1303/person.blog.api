@@ -10,13 +10,16 @@ namespace PersonBlogApi.Services.Implementations
     {
         public RoleService(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> RoleCreate_Req(RoleCreate_Req role)
+        public async Task<int> RoleCreate(RoleCreate_Req role)
         {
             using (var connection = GetConnection())
             {
-                return await connection.QuerySingleOrDefaultAsync<int>(
+                var parameters = new DynamicParameters();
+                parameters.Add("p_Name", role.Name);
+                parameters.Add("p_Description", role.Description);
+                return await connection.ExecuteAsync(
                     "sp_Roles_Create",
-                    role,
+                    parameters,
                     commandType: System.Data.CommandType.StoredProcedure
                 );
             }
@@ -27,7 +30,6 @@ namespace PersonBlogApi.Services.Implementations
             using (var connection = GetConnection())
             {
                 var parameters = new { p_RoleId = roleId };
-                // Giả định SP này thực hiện soft delete bằng cách set IsActive = FALSE hoặc IsDeleted = TRUE
                 var affectedRows = await connection.ExecuteAsync(
                     "sp_Roles_Delete",
                     parameters,
@@ -37,23 +39,23 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<List<RoleGet_Req>> RoleGet_ReqAll()
+        public async Task<List<RoleGetAll_Res>> RoleGetAll()
         {
             using (var connection = GetConnection())
             {
-                return (await connection.QueryAsync<RoleGet_Req>(
+                return (await connection.QueryAsync<RoleGetAll_Res>(
                     "sp_Roles_GetAll",
                     commandType: System.Data.CommandType.StoredProcedure
                 )).ToList();
             }
         }
 
-        public async Task<RoleGet_Req?> RoleGet_ReqById(int roleId)
+        public async Task<RoleGetById_Res?> RoleGetById(int roleId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_RoleId = roleId };
-                return await connection.QueryFirstOrDefaultAsync<RoleGet_Req>(
+                return await connection.QueryFirstOrDefaultAsync<RoleGetById_Res>(
                     "sp_Roles_GetById",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -61,12 +63,12 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<RoleGet_Req?> RoleGet_ReqByName(string name)
+        public async Task<RoleGetByName_Res?> RoleGetByName(string name)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Name = name };
-                return await connection.QueryFirstOrDefaultAsync<RoleGet_Req>(
+                return await connection.QueryFirstOrDefaultAsync<RoleGetByName_Res>(
                     "sp_Roles_GetByName",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -74,7 +76,7 @@ namespace PersonBlogApi.Services.Implementations
             }
         }
 
-        public async Task<bool> RoleUpdate_Req(int roleId, RoleUpdate_Req role)
+        public async Task<bool> RoleUpdate(int roleId, RoleUpdate_Req role)
         {
             using (var connection = GetConnection())
             {

@@ -6,9 +6,9 @@ namespace PersonBlogApi.Services.Interfaces
     {
         Task<int> CategoryCreate(CategoryCreate category);
         Task<bool> CategoryDelete(int categoryId);
-        Task<List<CategoryGet>> CategoryGetAll();
-        Task<CategoryGet?> CategoryGetById(int categoryId);
-        Task<CategoryGet?> CategoryGetBySlug(string slug);
-        Task<bool> CategoryUpdate(int categoryId, CategoryUpdate category);
+        Task<List<CategoryGetAll_Res>> CategoryGetAll();
+        Task<CategoryGetById_Res?> CategoryGetById(int categoryId);
+        Task<CategoryGetBySlug_Res?> CategoryGetBySlug(string slug);
+        Task<bool> CategoryUpdate(CategoryUpdate category);
     }
 }

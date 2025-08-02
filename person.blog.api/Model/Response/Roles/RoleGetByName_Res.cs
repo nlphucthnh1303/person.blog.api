@@ -1,6 +1,6 @@
 namespace PersonBlogApi.Models.Roles
 {
-    public class RoleGet_Res
+    public class RoleGetByName_Res
     {
         public int RoleId { get; set; }
         public string Name { get; set; } = string.Empty;

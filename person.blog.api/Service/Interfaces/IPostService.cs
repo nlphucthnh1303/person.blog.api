@@ -6,14 +6,25 @@ namespace PersonBlogApi.Services.Interfaces
 {
     public interface IPostService
     {
-        Task<int> PostCreate_Req(PostCreate_Req post);
-        Task<bool> PostDelete(int postId); 
-        Task<PostGet_Req?> PostGet_ReqById(int postId);
-        Task<PostGet_Req?> PostGet_ReqBySlug(string slug);
-        Task<List<PostListItem_Req>> PostGet_ReqPublishedList(int pageNumber, int pageSize);
+        Task<int> PostCreate(PostCreate_Req post);
+        Task<bool> PostDelete(int postId);
+        Task<bool> PostUpdate(PostUpdate_Req post);
+        Task<PostGetById_Res?> PostGetById(int postId);
+        Task<PostGetBySlug_Res?> PostGetBySlug(string slug);
+        Task<List<PostGetPublishedList_Res>> PostGetPublishedList(int pageNumber, int pageSize);
         Task<bool> PostIncrementViewCount(int postId);
-        Task<bool> PostUpdate_Req(int postId, PostUpdate_Req post);
-        Task<bool> PostUpdate_ReqStatus(int postId, string status);
-        Task<int> PostGet_ReqTotalPublishedPostCount(); 
+        Task<bool> PostUpdateStatus(int postId, string status);
     }
+
+    // sp_Posts_Create
+    // sp_Posts_Delete
+    // sp_Posts_Update
+    // sp_Posts_GetById
+    // sp_Posts_GetBySlug
+    // sp_Posts_GetPublishedList
+    // sp_Posts_IncrementViewCount
+    // sp_Posts_UpdateStatus
+
+
+
 }
