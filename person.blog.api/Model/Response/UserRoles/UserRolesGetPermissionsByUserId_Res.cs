@@ -1,6 +1,6 @@
 namespace PersonBlogApi.Models.Permissions
 {
-    public class PermissionGet_Req
+    public class UserRolesGetPermissionsByUserId_Res
     {
         public int PermissionId { get; set; }
         public string Name { get; set; } = string.Empty;

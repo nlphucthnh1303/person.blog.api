@@ -1,7 +1,7 @@
 using MySqlConnector;
 using Microsoft.Extensions.Configuration;
 
-namespace ersonBlogApi.Repositories
+namespace ersonBlogApi.Services
 {
     public abstract class BaseService
     {

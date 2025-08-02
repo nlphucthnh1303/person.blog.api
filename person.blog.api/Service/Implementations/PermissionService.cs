@@ -1,12 +1,12 @@
-// Repositories/Implementations/PermissionService.cs
+// Services/Implementations/PermissionService.cs
 using Dapper;
 using MySqlConnector;
 using Microsoft.Extensions.Configuration;
-using PersonBlogApi.Repositories.Interfaces;
-using ersonBlogApi.Repositories;
+using PersonBlogApi.Services.Interfaces;
+using ersonBlogApi.Services;
 using PersonBlogApi.Models.Permissions;
 
-namespace PersonBlogApi.Repositories.Implementations
+namespace PersonBlogApi.Services.Implementations
 {
     public class PermissionService : BaseService, IPermissionService
     {

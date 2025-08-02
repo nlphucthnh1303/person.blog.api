@@ -1,17 +1,20 @@
-// Repositories/Interfaces/IUserService.cs
+// Services/Interfaces/IUserService.cs
+
 
 using PersonBlogApi.Models.Users;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<UserGet_Req?> GetUserById(int userId);
-        Task<UserGet_Req?> GetUserByUsername(string username);
-        Task<UserGet_Req?> GetUserByEmail(string email); // Hàm này đã được đề cập
+        Task<UserGetById_Res?> GetUserById(int userId);
+        Task<UserGetByUsername_Res?> GetUserByUsername(string username);
+        Task<UserGetByEmail_Res?> GetUserByEmail(string email); // Hàm này đã được đề cập
         Task<bool> UpdateUserPassword(int userId, string newPasswordHash); // Cập nhật mật khẩu
         Task<bool> SetEmailConfirmed(int userId, bool isConfirmed); // Cập nhật trạng thái email xác nhận
-        Task<bool> UserDelete_Req(int userId); // Soft delete
-        Task<int> UserCreate_Req(UserCreate_Req UserCreate_Req); // Soft delete
+        Task<bool> UserDelete(int userId); // Soft delete
+        Task<int> UserCreate(UserCreate_Req UserCreate_Req); // Soft delete
     }
+
+
 }

@@ -2,7 +2,7 @@
 
 using PersonBlogApi.Models.Comments;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface ICommentService
     {

@@ -1,10 +1,10 @@
-// Repositories/Implementations/CategoryService.cs
+// Services/Implementations/CategoryService.cs
 using Dapper;
-using ersonBlogApi.Repositories;
+using ersonBlogApi.Services;
 using PersonBlogApi.Model.Categories;
-using PersonBlogApi.Repositories.Interfaces;
+using PersonBlogApi.Services.Interfaces;
 
-namespace PersonBlogApi.Repositories.Implementations
+namespace PersonBlogApi.Services.Implementations
 {
     public class CategoryService : BaseService, ICategoryService
     {

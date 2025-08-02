@@ -1,12 +1,12 @@
-// Repositories/Implementations/CommentService.cs
+// Services/Implementations/CommentService.cs
 
 
 using Dapper;
-using ersonBlogApi.Repositories;
+using ersonBlogApi.Services;
 using PersonBlogApi.Models.Comments;
-using PersonBlogApi.Repositories.Interfaces;
+using PersonBlogApi.Services.Interfaces;
 
-namespace PersonBlogApi.Repositories.Implementations
+namespace PersonBlogApi.Services.Implementations
 {
     public class CommentService : BaseService, ICommentService
     {

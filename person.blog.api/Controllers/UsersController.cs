@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonBlogApi.Models.Users;
-using PersonBlogApi.Repositories.Interfaces;
+using PersonBlogApi.Services.Interfaces;
 
 namespace PersonBlogApi.Controllers
 {
@@ -40,7 +40,7 @@ namespace PersonBlogApi.Controllers
             }
             try
             {
-                var newUser = await _userService.UserCreate_Req(request);
+                var newUser = await _userService.UserCreate(request);
                 return Ok(new { userId = newUser });
             }
             catch (Exception ex)
@@ -50,8 +50,7 @@ namespace PersonBlogApi.Controllers
         }
 
 
-        /// <summary>
-        /// </summary>
+
         [HttpDelete("Delete")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -59,7 +58,7 @@ namespace PersonBlogApi.Controllers
         {
             try
             {
-                var success = await _userService.UserDelete_Req(userId);
+                var success = await _userService.UserDelete(userId);
                 if (success)
                 {
                     return Ok(success);
@@ -128,7 +127,7 @@ namespace PersonBlogApi.Controllers
 
             try
             {
-                var success = await _userService.UpdateUserPassword(request.userId, request.newPasswordHash);
+                var success = await _userService.UpdateUserPassword(request.userId, request.PasswordHash);
                 if (success)
                 {
                     return Ok(new { message = "Password updated successfully." });

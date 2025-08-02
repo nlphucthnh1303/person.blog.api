@@ -1,14 +1,17 @@
 namespace PersonBlogApi.Models.SocialLogins
 {
-    public class SocialLoginGet_Req
+    public class SocialLoginGetById_Res
     {
         public int SocialLoginId { get; set; }
         public int UserId { get; set; }
-        public string Provider { get; set; } = string.Empty;
+        public string ProviderName { get; set; } = string.Empty;
         public string ProviderKey { get; set; } = string.Empty;
-        public string? AccessToken { get; set; }
-        public string? RefreshToken { get; set; }
+        public string? Email { get; set; }
+        public string? DisplayName { get; set; }
+        public string? AvatarUrl { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
     }
+
+
+
 }

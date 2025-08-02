@@ -2,7 +2,7 @@
 
 using PersonBlogApi.Models.Permissions;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface IPermissionService
     {

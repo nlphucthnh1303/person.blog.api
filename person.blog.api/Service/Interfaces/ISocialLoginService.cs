@@ -2,14 +2,14 @@
 
 using PersonBlogApi.Models.SocialLogins;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface ISocialLoginService
     {
-        Task<int> SocialLoginCreate_Req(SocialLoginCreate_Req socialLogin);
+        Task<int> SocialLoginCreate(SocialLoginCreate_Req socialLogin);
         Task<bool> SocialLoginDelete(int socialLoginId);
-        Task<SocialLoginGet_Req?> SocialLoginGet_ReqById(int socialLoginId);
-        Task<SocialLoginGet_Req?> SocialLoginGet_ReqByProviderAndKey(string provider, string providerKey);
-        Task<List<SocialLoginGet_Req>> SocialLoginGet_ReqByUserId(int userId);
+        Task<SocialLoginGetById_Res?> SocialLoginGetById(int socialLoginId);
+        Task<SocialLoginGetByProviderNameAndKey_Res?> SocialLoginGetByProviderNameAndKey(string providerName, string providerKey);
+        Task<List<SocialLoginetByUserId_Res>> SocialLoginGetByUserId(int userId);
     }
 }

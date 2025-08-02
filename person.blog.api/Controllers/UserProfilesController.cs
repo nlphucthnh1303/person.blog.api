@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonBlogApi.Models.UserProfiles;
-using PersonBlogApi.Repositories.Interfaces;
+using PersonBlogApi.Services.Interfaces;
 
 namespace PersonBlogApi.Controllers
 {
@@ -48,8 +48,7 @@ namespace PersonBlogApi.Controllers
         }
 
 
-        /// <summary>
-        /// </summary>
+
         [HttpDelete("Delete")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -84,7 +83,47 @@ namespace PersonBlogApi.Controllers
             return Ok(userProfile);
         }
 
+        [HttpPut("Update")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateUserProfile(UserProfileUpdate_Req req)
+        {
+            try
+            {
+                var success = await _userProfileService.UserProfileUpdate(req);
+                if (success)
+                {
+                    return Ok(success);
+                }
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Failed to delete user." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new { message = ex.Message });
+            }
 
+        }
+
+        [HttpPut("UpdateUserProfileByUserId")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateUserProfileByUserId(UserProfileUpdateUserId_Req req)
+        {
+            try
+            {
+                var success = await _userProfileService.UserProfileUpdateUserId(req);
+                if (success)
+                {
+                    return Ok(success);
+                }
+                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Failed to delete user." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, new { message = ex.Message });
+            }
+
+        }
         
     }
 }

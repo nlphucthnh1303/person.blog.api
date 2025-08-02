@@ -1,6 +1,6 @@
 using PersonBlogApi.Models.Roles;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface IRoleService
     {

@@ -1,14 +1,22 @@
 
 using PersonBlogApi.Models.UserProfiles;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface IUserProfileService
     {
-        Task<int> UserProfileCreate(UserProfileCreate_Req profile);
+        Task<int> UserProfileCreate(UserProfileCreate_Req req);
         Task<bool> UserProfileDelete(int userId);
-        Task<UserProfileGet_Req?> UserProfileGetByUserId(int userId);
-        Task<bool> UserProfileUpdate(int userId, UserProfileUpdate_Req profile);
-        Task<bool> UserProfileUpdateUserId(int newUserId); // Cập nhật FK UserId
+        Task<UserProfileGetByUserId_Res?> UserProfileGetByUserId(int userId);
+        Task<bool> UserProfileUpdate(UserProfileUpdate_Req req);
+        Task<bool> UserProfileUpdateUserId( UserProfileUpdateUserId_Req req);
     }
+    // sp_UserProfiles_Create
+    // sp_UserProfiles_Delete
+    // sp_UserProfiles_Update
+    // sp_UserProfiles_UpdateUserId
+    // sp_UserProfiles_GetByUserId
+
+
+
 }

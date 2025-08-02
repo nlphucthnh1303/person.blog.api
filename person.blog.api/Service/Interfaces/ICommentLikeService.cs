@@ -1,6 +1,6 @@
 
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface ICommentLikeService
     {

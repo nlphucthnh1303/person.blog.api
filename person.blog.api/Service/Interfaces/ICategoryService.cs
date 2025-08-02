@@ -1,6 +1,6 @@
 using PersonBlogApi.Model.Categories;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface ICategoryService
     {

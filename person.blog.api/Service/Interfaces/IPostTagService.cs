@@ -1,6 +1,6 @@
 using PersonBlogApi.Models.PostTags;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface IPostTagService
     {

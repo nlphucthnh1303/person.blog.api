@@ -1,6 +1,6 @@
 namespace PersonBlogApi.Models.Tags
 {
-    public class TagGet_Req
+    public class TagGetBySlug_Res
     {
         public int TagId { get; set; }
         public string Name { get; set; } = string.Empty;

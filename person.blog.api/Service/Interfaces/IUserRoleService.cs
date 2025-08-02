@@ -3,13 +3,21 @@
 using PersonBlogApi.Models.Permissions;
 using PersonBlogApi.Models.Roles;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface IUserRoleService
     {
         Task<bool> UserRoleAdd(int userId, int roleId);
-        Task<List<RoleGet_Req>> UserRoleGet_ReqByUserId(int userId);
-        Task<List<PermissionGet_Req>> UserRoleGet_ReqPermissionsByUserId(int userId); // Lấy tất cả quyền của user
+        Task<List<UserRolesGetByUserId_Res>> UserRoleGet_GetByUserId(int userId);
+        Task<List<UserRolesGetPermissionsByUserId_Res>> UserRoleGet_GetPermissionsByUserId(int userId);
         Task<bool> UserRoleRemove(int userId, int roleId);
     }
+
+// sp_UserRoles_Add
+// sp_UserRoles_GetByUserId
+// sp_UserRolesGetPermissionsByUserId
+// sp_UserRoles_Remove
+
+
+
 }

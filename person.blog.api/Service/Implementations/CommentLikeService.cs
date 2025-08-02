@@ -1,9 +1,9 @@
-// Repositories/Implementations/CommentLikeService.cs
+// Services/Implementations/CommentLikeService.cs
 using Dapper;
-using ersonBlogApi.Repositories;
-using PersonBlogApi.Repositories.Interfaces;
+using ersonBlogApi.Services;
+using PersonBlogApi.Services.Interfaces;
 
-namespace PersonBlogApi.Repositories.Implementations
+namespace PersonBlogApi.Services.Implementations
 {
     public class CommentLikeService : BaseService, ICommentLikeService
     {

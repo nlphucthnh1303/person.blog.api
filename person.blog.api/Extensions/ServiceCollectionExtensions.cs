@@ -1,16 +1,16 @@
 // Extensions/ServiceCollectionExtensions.cs
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PersonBlogApi.Repositories;
-using PersonBlogApi.Repositories.Interfaces;
-using PersonBlogApi.Repositories.Implementations;
+using PersonBlogApi.Services;
+using PersonBlogApi.Services.Interfaces;
+using PersonBlogApi.Services.Implementations;
 
 namespace PersonBlogApi.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        // Phương thức mở rộng để đăng ký tất cả các Repositories
-        public static IServiceCollection AddApplicationRepositories(this IServiceCollection services)
+        // Phương thức mở rộng để đăng ký tất cả các Services
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             // Đảm bảo bạn đã có các Service này và interface tương ứng
             
@@ -52,7 +52,7 @@ namespace PersonBlogApi.Extensions
                 throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
             }
 
-            services.AddApplicationRepositories(); // Gọi phương thức đã định nghĩa ở trên
+            services.AddApplicationServices(); // Gọi phương thức đã định nghĩa ở trên
             services.AddApplicationServices();    // Gọi phương thức đã định nghĩa ở trên
 
             // Đăng ký các tiện ích (Utilities) nếu cần inject

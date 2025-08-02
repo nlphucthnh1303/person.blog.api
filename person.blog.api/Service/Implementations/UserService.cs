@@ -1,21 +1,21 @@
 
 using Dapper;
-using ersonBlogApi.Repositories;
+using ersonBlogApi.Services;
 using PersonBlogApi.Models.Users;
-using PersonBlogApi.Repositories.Interfaces;
+using PersonBlogApi.Services.Interfaces;
 
-namespace PersonBlogApi.Repositories
+namespace PersonBlogApi.Services
 {
     public class UserService : BaseService, IUserService
     {
         public UserService(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<UserGet_Req?> GetUserById(int userId)
+        public async Task<UserGetById_Res?> GetUserById(int userId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_UserId = userId }; // Tên tham số khớp với SP
-                return await connection.QueryFirstOrDefaultAsync<UserGet_Req>(
+                return await connection.QueryFirstOrDefaultAsync<UserGetById_Res>(
                     "sp_Users_GetById", // Tên Stored Procedure
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -23,12 +23,12 @@ namespace PersonBlogApi.Repositories
             }
         }
 
-        public async Task<UserGet_Req?> GetUserByUsername(string username)
+        public async Task<UserGetByUsername_Res?> GetUserByUsername(string username)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Username = username }; // Tên tham số khớp với SP
-                return await connection.QueryFirstOrDefaultAsync<UserGet_Req>(
+                return await connection.QueryFirstOrDefaultAsync<UserGetByUsername_Res>(
                     "sp_Users_GetByUsername", // Tên Stored Procedure
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -36,12 +36,12 @@ namespace PersonBlogApi.Repositories
             }
         }
 
-        public async Task<UserGet_Req?> GetUserByEmail(string email)
+        public async Task<UserGetByEmail_Res?> GetUserByEmail(string email)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_Email = email }; // Tên tham số khớp với SP
-                return await connection.QueryFirstOrDefaultAsync<UserGet_Req>(
+                return await connection.QueryFirstOrDefaultAsync<UserGetByEmail_Res>(
                     "sp_Users_GetByEmail", // Tên Stored Procedure
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -85,7 +85,7 @@ namespace PersonBlogApi.Repositories
             }
         }
 
-        public async Task<bool> UserDelete_Req(int userId)
+        public async Task<bool> UserDelete(int userId)
         {
             using (var connection = GetConnection())
             {
@@ -99,7 +99,7 @@ namespace PersonBlogApi.Repositories
             }
         }
 
-        public async Task<int> UserCreate_Req(UserCreate_Req UserCreate_Req)
+        public async Task<int> UserCreate(UserCreate_Req UserCreate_Req)
         {
             //Sử dụng 'using' để đảm bảo MySqlConnection được đóng và giải phóng đúng cách.
             using (var connection = GetConnection())

@@ -1,11 +1,11 @@
-// Repositories/Implementations/RolePermissionService.cs
+// Services/Implementations/RolePermissionService.cs
 using Dapper;
-using ersonBlogApi.Repositories;
+using ersonBlogApi.Services;
 using PersonBlogApi.Models.Permissions;
-using PersonBlogApi.Repositories.Interfaces;
+using PersonBlogApi.Services.Interfaces;
 
 
-namespace PersonBlogApi.Repositories.Implementations
+namespace PersonBlogApi.Services.Implementations
 {
     public class RolePermissionService : BaseService, IRolePermissionService
     {

@@ -1,33 +1,47 @@
-// Repositories/Implementations/UserProfileService.cs
+// Services/Implementations/UserProfileService.cs
 using Dapper;
-using ersonBlogApi.Repositories;
+using ersonBlogApi.Services;
 using PersonBlogApi.Models.UserProfiles;
-using PersonBlogApi.Repositories.Interfaces;
+using PersonBlogApi.Services.Interfaces;
 
-namespace PersonBlogApi.Repositories.Implementations
+namespace PersonBlogApi.Services.Implementations
 {
     public class UserProfileService : BaseService, IUserProfileService
     {
         public UserProfileService(IConfiguration configuration) : base(configuration) { }
 
-        public async Task<int> UserProfileCreate(UserProfileCreate_Req profile)
+        public async Task<int> UserProfileCreate(UserProfileCreate_Req req)
         {
             using (var connection = GetConnection())
             {
-                return await connection.QuerySingleOrDefaultAsync<int>(
-                    "sp_UserProfiles_Create",
-                    profile,
+                var parameters = new DynamicParameters();
+                parameters.Add("p_UserId", req);
+                parameters.Add("p_FirstName", req.FirstName);
+                parameters.Add("p_LastName", req.LastName);
+                parameters.Add("p_FirstName", req.FirstName);
+                parameters.Add("p_AvatarUrl", req.AvatarUrl);
+                parameters.Add("p_Bio", req.Bio);
+                parameters.Add("p_DateOfBirth", req.DateOfBirth);
+                parameters.Add("p_PhoneNumber", req.PhoneNumber);
+                parameters.Add("p_Country", req.Country);
+                parameters.Add("p_FacebookLink", req.FacebookLink);
+                parameters.Add("p_TwitterLink", req.TwitterLink);
+                parameters.Add("p_LinkedInLink", req.LinkedInLink);
+                parameters.Add("p_GitHubLink", req.GitHubLink);
+                return await connection.ExecuteAsync(
+                    "sp_UserProfiles_Update",
+                    parameters,
                     commandType: System.Data.CommandType.StoredProcedure
                 );
             }
         }
 
-        public async Task<UserProfileGet_Req?> UserProfileGetByUserId(int userId)
+        public async Task<UserProfileGetByUserId_Res?> UserProfileGetByUserId(int userId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_UserId = userId };
-                return await connection.QueryFirstOrDefaultAsync<UserProfileGet_Req>(
+                return await connection.QueryFirstOrDefaultAsync<UserProfileGetByUserId_Res>(
                     "sp_UserProfiles_GetByUserId",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -35,17 +49,23 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<bool> UserProfileUpdate(int userId, UserProfileUpdate_Req profile)
+        public async Task<bool> UserProfileUpdate(UserProfileUpdate_Req req)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("p_UserId", userId);
-                parameters.Add("p_FirstName", profile.FirstName);
-                parameters.Add("p_LastName", profile.LastName);
-                parameters.Add("p_Bio", profile.Bio);
-                parameters.Add("p_ProfilePictureUrl", profile.ProfilePictureUrl);
-
+                parameters.Add("p_UserProfileId", req.UserProfileId);
+                parameters.Add("p_FirstName", req.FirstName);
+                parameters.Add("p_LastName", req.LastName);
+                parameters.Add("p_AvatarUrl", req.AvatarUrl);
+                parameters.Add("p_Bio", req.Bio);
+                parameters.Add("p_DateOfBirth", req.DateOfBirth);
+                parameters.Add("p_PhoneNumber", req.PhoneNumber);
+                parameters.Add("p_Country", req.Country);
+                parameters.Add("p_FacebookLink", req.FacebookLink);
+                parameters.Add("p_TwitterLink", req.TwitterLink);
+                parameters.Add("p_LinkedInLink", req.LinkedInLink);
+                parameters.Add("p_GitHubLink", req.GitHubLink);
                 var affectedRows = await connection.ExecuteAsync(
                     "sp_UserProfiles_Update",
                     parameters,
@@ -55,15 +75,23 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<bool> UserProfileUpdateUserId(int oldUserId, int newUserId)
+        public async Task<bool> UserProfileUpdateUserId(UserProfileUpdateUserId_Req req)
         {
             using (var connection = GetConnection())
             {
-                var parameters = new UserProfileUpdateUserId_Req
-                {
-                    OldUserId = oldUserId,
-                    NewUserId = newUserId
-                };
+                var parameters = new DynamicParameters();
+                parameters.Add("p_UserId", req.UserId);
+                parameters.Add("p_FirstName", req.FirstName);
+                parameters.Add("p_LastName", req.LastName);
+                parameters.Add("p_AvatarUrl", req.AvatarUrl);
+                parameters.Add("p_Bio", req.Bio);
+                parameters.Add("p_DateOfBirth", req.DateOfBirth);
+                parameters.Add("p_PhoneNumber", req.PhoneNumber);
+                parameters.Add("p_Country", req.Country);
+                parameters.Add("p_FacebookLink", req.FacebookLink);
+                parameters.Add("p_TwitterLink", req.TwitterLink);
+                parameters.Add("p_LinkedInLink", req.LinkedInLink);
+                parameters.Add("p_GitHubLink", req.GitHubLink);
                 var affectedRows = await connection.ExecuteAsync(
                     "sp_UserProfiles_UpdateUserId",
                     parameters,
@@ -88,9 +116,6 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public Task<bool> UserProfileUpdateUserId(int newUserId)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

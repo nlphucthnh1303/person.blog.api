@@ -2,7 +2,7 @@
 
 using PersonBlogApi.Models.Posts;
 
-namespace PersonBlogApi.Repositories.Interfaces
+namespace PersonBlogApi.Services.Interfaces
 {
     public interface IPostService
     {

@@ -1,11 +1,11 @@
-// Repositories/Implementations/UserRoleService.cs
+// Services/Implementations/UserRoleService.cs
 using Dapper;
-using ersonBlogApi.Repositories;
+using ersonBlogApi.Services;
 using PersonBlogApi.Models.Permissions;
 using PersonBlogApi.Models.Roles;
-using PersonBlogApi.Repositories.Interfaces;
+using PersonBlogApi.Services.Interfaces;
 
-namespace PersonBlogApi.Repositories.Implementations
+namespace PersonBlogApi.Services.Implementations
 {
     public class UserRoleService : BaseService, IUserRoleService
     {
@@ -25,12 +25,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<RoleGet_Req>> UserRoleGet_ReqByUserId(int userId)
+        public async Task<List<UserRolesGetByUserId_Res>> UserRoleGet_GetByUserId(int userId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_UserId = userId };
-                return (await connection.QueryAsync<RoleGet_Req>(
+                return (await connection.QueryAsync<UserRolesGetByUserId_Res>(
                     "sp_UserRoles_GetByUserId", // Giả định SP này join và trả về thông tin Role
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
@@ -38,13 +38,12 @@ namespace PersonBlogApi.Repositories.Implementations
             }
         }
 
-        public async Task<List<PermissionGet_Req>> UserRoleGet_ReqPermissionsByUserId(int userId)
+        public async Task<List<UserRolesGetPermissionsByUserId_Res>> UserRoleGet_GetPermissionsByUserId(int userId)
         {
             using (var connection = GetConnection())
             {
                 var parameters = new { p_UserId = userId };
-                // Giả định SP này join UserRoles -> Roles -> RolePermissions -> Permissions
-                return (await connection.QueryAsync<PermissionGet_Req>(
+                return (await connection.QueryAsync<UserRolesGetPermissionsByUserId_Res>(
                     "sp_UserRoles_GetPermissionsByUserId",
                     parameters,
                     commandType: System.Data.CommandType.StoredProcedure
